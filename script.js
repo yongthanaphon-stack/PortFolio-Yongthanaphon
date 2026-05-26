@@ -166,11 +166,13 @@ function showNotification(message, type = 'success') {
         position: fixed;
         top: 100px;
         right: 20px;
-        background-color: ${type === 'success' ? '#FFB6C1' : '#FF6B6B'};
-        color: white;
+        background-color: ${type === 'success' ? '#A3B18A' : '#E8B4B8'};
+        color: #4A3E3D;
         padding: 16px 24px;
-        border-radius: 8px;
-        font-weight: 600;
+        border: 2px solid #4A3E3D;
+        box-shadow: 4px 4px 0px #4A3E3D;
+        font-family: 'Space Mono', monospace;
+        font-weight: 700;
         z-index: 10000;
         animation: slideInDown 0.3s ease-out;
         max-width: 300px;
