@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yongthanaphon - Creative Portfolio">
+    <meta name="author" content="Yongthanaphon">
+    <title>Yongthanaphon | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">Yongthanaphon</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="greeting">Hello, I'm</h1>
+                <h2 class="name">Yongthanaphon</h2>
+                <p class="tagline">Creative Designer & Developer</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get In Touch</button>
+                    <button class="btn btn-secondary">View My Work</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-box">
+                    <p>✨</p>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a passionate creative designer and developer with a love for creating beautiful, functional digital experiences. With a keen eye for detail and a passion for minimalist design, I craft solutions that are both aesthetically pleasing and user-friendly.</p>
+                    <p>When I'm not designing or coding, you can find me exploring new design trends, learning new technologies, or enjoying a cup of coffee while contemplating the next big idea.</p>
+                    <div class="about-info">
+                        <div class="info-item">
+                            <span class="info-label">Experience</span>
+                            <span class="info-value">5+ Years</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Projects</span>
+                            <span class="info-value">20+</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Clients</span>
+                            <span class="info-value">15+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <span>📸</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Services</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🎨</div>
+                    <h3>UI/UX Design</h3>
+                    <p>Creating beautiful and intuitive user interfaces that delight users</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">💻</div>
+                    <h3>Web Development</h3>
+                    <p>Building responsive and performant websites with modern technologies</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎬</div>
+                    <h3>Animation</h3>
+                    <p>Crafting smooth animations and micro-interactions for enhanced UX</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📱</div>
+                    <h3>Mobile Design</h3>
+                    <p>Designing mobile-first experiences for all devices and screen sizes</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎯</div>
+                    <h3>Branding</h3>
+                    <p>Developing cohesive brand identities and visual systems</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <h3>Performance</h3>
+                    <p>Optimizing websites for speed, accessibility, and SEO</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23D2B48C'/%3E%3Ctext x='50%' y='50%' font-size='48' fill='%23fff' text-anchor='middle' dominant-baseline='middle'%3EProject 1%3C/text%3E%3C/svg%3E" alt="Project 1">
+                        <div class="portfolio-overlay">
+                            <h3>Project One</h3>
+                            <p>Beautiful UI Design for E-commerce Platform</p>
+                            <a href="#" class="overlay-link">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23FFB6C1'/%3E%3Ctext x='50%' y='50%' font-size='48' fill='%23fff' text-anchor='middle' dominant-baseline='middle'%3EProject 2%3C/text%3E%3C/svg%3E" alt="Project 2">
+                        <div class="portfolio-overlay">
+                            <h3>Project Two</h3>
+                            <p>Mobile App Interface Design & Development</p>
+                            <a href="#" class="overlay-link">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23D2B48C'/%3E%3Ctext x='50%' y='50%' font-size='48' fill='%23fff' text-anchor='middle' dominant-baseline='middle'%3EProject 3%3C/text%3E%3C/svg%3E" alt="Project 3">
+                        <div class="portfolio-overlay">
+                            <h3>Project Three</h3>
+                            <p>Brand Identity & Website Redesign</p>
+                            <a href="#" class="overlay-link">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23FFB6C1'/%3E%3Ctext x='50%' y='50%' font-size='48' fill='%23fff' text-anchor='middle' dominant-baseline='middle'%3EProject 4%3C/text%3E%3C/svg%3E" alt="Project 4">
+                        <div class="portfolio-overlay">
+                            <h3>Project Four</h3>
+                            <p>Dashboard & Analytics Platform UI</p>
+                            <a href="#" class="overlay-link">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23D2B48C'/%3E%3Ctext x='50%' y='50%' font-size='48' fill='%23fff' text-anchor='middle' dominant-baseline='middle'%3EProject 5%3C/text%3E%3C/svg%3E" alt="Project 5">
+                        <div class="portfolio-overlay">
+                            <h3>Project Five</h3>
+                            <p>Social Commerce Platform Design</p>
+                            <a href="#" class="overlay-link">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23FFB6C1'/%3E%3Ctext x='50%' y='50%' font-size='48' fill='%23fff' text-anchor='middle' dominant-baseline='middle'%3EProject 6%3C/text%3E%3C/svg%3E" alt="Project 6">
+                        <div class="portfolio-overlay">
+                            <h3>Project Six</h3>
+                            <p>Wellness App & Brand Strategy</p>
+                            <a href="#" class="overlay-link">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Work Together</h2>
+            <p class="contact-subtitle">I'm always interested in hearing about new projects and opportunities.</p>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <h3>Email</h3>
+                            <p><a href="mailto:hello@yongthanaphon.com">hello@yongthanaphon.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <div>
+                            <h3>Phone</h3>
+                            <p><a href="tel:+66812345678">+66 (81) 234-5678</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Bangkok, Thailand</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Yongthanaphon</h3>
+                    <p>Creating beautiful digital experiences with passion and precision.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Me</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Dribbble</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Yongthanaphon. All rights reserved. | Made with ✨ and ☕</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
