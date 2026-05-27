@@ -208,7 +208,7 @@ nav{
 #works{padding:0 52px 96px 104px;border-top:1px solid var(--border);}
 .works-header{padding-top:96px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-end;}
 .tab-bar{display:flex;overflow-x:auto;border-bottom:2px solid var(--border);margin-bottom:28px;}
-.tab{padding:10px 18px;font-size:12px;border-right:1px solid var(--border);color:var(--comment);white-space:nowrap;cursor:none;transition:background .2s,color .2s;display:flex;align-items:center;gap:6px;}
+.tab{padding:10px 18px;font-size:12px;border-right:1px solid var(--border);color:var(--comment);white-space:nowrap;cursor:pointer;transition:background .2s,color .2s;display:flex;align-items:center;gap:6px;}
 .tab:hover{background:var(--amber-bg);color:var(--amber);}
 .tab.active{background:var(--card);color:var(--amber);border-bottom:2px solid var(--amber);margin-bottom:-2px;border-top:1px solid var(--border);border-left:1px solid var(--border);}
 .tab .ext{opacity:.5;font-size:10px;}
@@ -430,6 +430,10 @@ footer .gr{color:var(--green);}
   <div class="about-right rev" style="transition-delay:.15s">
     <div class="section-comment">// biography.txt</div>
     <div class="section-head" style="margin-bottom:20px;"><span class="sym">/**</span><span class="name"> bio</span></div>
+    <div class="profile-wrapper">
+      <!-- เปลี่ยน URL รูปตรง src ให้เป็นรูปของคุณได้เลยครับ -->
+      <img src="https://scontent-bkk1-1.xx.fbcdn.net/v/t39.30808-1/530339659_1810417492883095_6426760292760918856_n.jpg?stp=dst-jpg_s320x320_tt6&_nc_cat=101&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFvx23QuApI-19_fwG0p4YRGgXuhevMKDEaBe6F68woMeYR21mKknA0ZfKpq8NzOexwFMG014ZZx1sWDsvlKyAb&_nc_ohc=c5qPVUk3Yd0Q7kNvwFY7i0J&_nc_oc=AdohKPalsiWITwTS9tm3ISMch5Gvs0XDeKUIGjJNju9Hi-XnbmIwwW_KEq5S9C77VOA&_nc_zt=24&_nc_ht=scontent-bkk1-1.xx&_nc_gid=RBZmVTu11QrJQxbuGXttMg&_nc_ss=7b2a8&oh=00_Af7_M_NvCTBXbV656Pkge2pSdPYopv2mDsaDMVvNyqyxJw&oe=6A1C6616" alt="Yongthanaphon" class="profile-img">
+    </div>
     <p>I'm <span class="hi">Yongthanaphon</span>, a <span class="kw">full-stack developer</span> and UI designer who bridges the gap between design thinking and technical execution.</p>
     <p>My work spans <span class="hi">web applications</span>, <span class="hi">mobile apps</span>, and <span class="hi">design systems</span> — always with a focus on user experience and clean code.</p>
     <p>When I'm not coding, you'll find me listening to <span class="hi">lo-fi beats ☕</span> and exploring new tech stacks.</p>
@@ -453,11 +457,11 @@ footer .gr{color:var(--green);}
     <a class="btn btn-ghost" href="#">ls -la projects/</a>
   </div>
   <div class="tab-bar">
-    <div class="tab active">📁 all <span class="ext">*.*</span></div>
-    <div class="tab">⚡ react <span class="ext">.jsx</span></div>
-    <div class="tab">🐍 python <span class="ext">.py</span></div>
-    <div class="tab">🎨 design <span class="ext">.fig</span></div>
-    <div class="tab">🤖 ai <span class="ext">.py</span></div>
+    <div class="tab active" data-filter="all">📁 all <span class="ext">*.*</span></div>
+    <div class="tab" data-filter="react">⚡ react <span class="ext">.jsx</span></div>
+    <div class="tab" data-filter="python">🐍 python <span class="ext">.py</span></div>
+    <div class="tab" data-filter="design">🎨 design <span class="ext">.fig</span></div>
+    <div class="tab" data-filter="ai">🤖 ai <span class="ext">.py</span></div>
   </div>
   <div class="works-grid">
 
@@ -482,10 +486,10 @@ footer .gr{color:var(--green);}
         </svg>
       </div>
       <div class="wcard-num">001</div>
-      <div class="wcard-chips"><span class="wchip js">React</span><span class="wchip go">TypeScript</span></div>
-      <div class="wcard-fn"><span class="dir">src</span><span class="slash">/</span><span class="file">analytics-platform.jsx</span></div>
-      <div class="wcard-title"><span class="hi">Analytics</span> Platform</div>
-      <div class="wcard-desc">// Real-time data visualization dashboard for business intelligence.</div>
+      <div class="wcard-chips"><span class="wchip js">React</span><span class="wchip go">TypeScript</span><span class="wchip ui">Figma</span></div>
+      <div class="wcard-fn"><span class="dir">src</span><span class="slash">/</span><span class="file">blue-horizon.tsx</span></div>
+      <div class="wcard-title"><span class="hi">Blue</span> Horizon</div>
+      <div class="wcard-desc">// Foresight web platform for university users to collect, vote, and analyze global signals.</div>
     </div>
 
     <div class="wcard">
@@ -502,10 +506,10 @@ footer .gr{color:var(--green);}
         </svg>
       </div>
       <div class="wcard-num">002</div>
-      <div class="wcard-chips"><span class="wchip go">Flutter</span></div>
-      <div class="wcard-fn"><span class="dir">mobile</span><span class="slash">/</span><span class="file">e-commerce.dart</span></div>
-      <div class="wcard-title">E-Commerce <span class="hi">App</span></div>
-      <div class="wcard-desc">// Cross-platform shopping app with seamless checkout flow.</div>
+      <div class="wcard-chips"><span class="wchip js">React</span><span class="wchip js">Node.js</span><span class="wchip ui">postgreSQL</span></div>
+      <div class="wcard-fn"><span class="dir">web</span><span class="slash">/</span><span class="file">tutor-system.tsx</span></div>
+      <div class="wcard-title">Tutor Management <span class="hi">System</span></div>
+      <div class="wcard-desc">// Full-stack web app for tutor discovery, student registration, authentication, and dashboard management.</div>
     </div>
 
     <div class="wcard">
@@ -523,10 +527,10 @@ footer .gr{color:var(--green);}
         </svg>
       </div>
       <div class="wcard-num">003</div>
-      <div class="wcard-chips"><span class="wchip ui">Figma</span></div>
-      <div class="wcard-fn"><span class="dir">design</span><span class="slash">/</span><span class="file">system.fig</span></div>
-      <div class="wcard-title">Design <span class="hi">System</span></div>
-      <div class="wcard-desc">// Scalable component library for enterprise-grade products.</div>
+      <div class="wcard-chips"><span class="wchip ui">Express</span><span class="wchip ui">PostgreSQL</span><span class="wchip py">Docker</span></div>
+      <div class="wcard-fn"><span class="dir">api</span><span class="slash">/</span><span class="file">library-api.ts</span></div>
+      <div class="wcard-title">Library <span class="hi">API</span></div>
+      <div class="wcard-desc">// RESTful API for managing books, authors, filters, and database queries.</div>
     </div>
 
     <div class="wcard">
@@ -548,10 +552,35 @@ footer .gr{color:var(--green);}
         </svg>
       </div>
       <div class="wcard-num">004</div>
-      <div class="wcard-chips"><span class="wchip js">Node.js</span><span class="wchip py">Python</span></div>
-      <div class="wcard-fn"><span class="dir">api</span><span class="slash">/</span><span class="file">saas-platform.ts</span></div>
-      <div class="wcard-title">SaaS <span class="hi">Platform</span></div>
-      <div class="wcard-desc">// Full-stack web app with REST API &amp; third-party integrations.</div>
+      <div class="wcard-chips"><span class="wchip py">Python</span><span class="wchip js">PyTorch</span><span class="wchip ui">Kaggle</span></div>
+      <div class="wcard-fn"><span class="dir">ai</span><span class="slash">/</span><span class="file">galaxy-zoo.py</span></div>
+      <div class="wcard-title">Galaxy Zoo <span class="hi">Classification</span></div>
+      <div class="wcard-desc">// CNN-based image classification model for galaxy morphology prediction using PyTorch.</div>
+    </div>
+
+        <div class="wcard">
+      <div class="wcard-visual">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+          <rect x="60" y="50" width="280" height="200" rx="8" fill="#FAF6F0" stroke="#DDD5C4" stroke-width=".8"/>
+          <circle cx="82" cy="72" r="6" fill="#FF5F57" opacity=".8"/>
+          <circle cx="98" cy="72" r="6" fill="#FFBD2E" opacity=".8"/>
+          <circle cx="114" cy="72" r="6" fill="#28CA42" opacity=".8"/>
+          <rect x="80" y="94" width="52" height="7" rx="2" fill="#6B3D9E" opacity=".5"/>
+          <rect x="140" y="94" width="78" height="7" rx="2" fill="#1A5FA8" opacity=".4"/>
+          <rect x="80" y="113" width="36" height="7" rx="2" fill="#6B3D9E" opacity=".4"/>
+          <rect x="124" y="113" width="96" height="7" rx="2" fill="#1A7E72" opacity=".35"/>
+          <rect x="96" y="132" width="52" height="7" rx="2" fill="#6B3D9E" opacity=".35"/>
+          <rect x="80" y="151" width="44" height="7" rx="2" fill="#B87800" opacity=".45"/>
+          <rect x="80" y="170" width="130" height="7" rx="2" fill="#DDD5C4"/>
+          <rect x="80" y="189" width="80" height="7" rx="2" fill="#EDE8DC"/>
+          <rect x="80" y="208" width="44" height="7" rx="2" fill="#6B3D9E" opacity=".35"/>
+        </svg>
+      </div>
+      <div class="wcard-num">005</div>
+      <div class="wcard-chips"><span class="wchip js">React</span><span class="wchip go">Tailwind</span><span class="wchip ui">Git</span></div>
+      <div class="wcard-fn"><span class="dir">portfolio</span><span class="slash">/</span><span class="file">developer-portfolio.tsx</span></div>
+      <div class="wcard-title">Developer Portfolio <span class="hi">Website</span></div>
+      <div class="wcard-desc">// Personal portfolio website with selected works, experience, contact, and visual identity.</div>
     </div>
 
     <div class="wcard wide">
@@ -568,7 +597,7 @@ footer .gr{color:var(--green);}
           <text x="466" y="33" font-family="JetBrains Mono,monospace" font-size="9" fill="#2D7A3A" text-anchor="middle" opacity=".8">+38.2%</text>
         </svg>
       </div>
-      <div class="wcard-num">005</div>
+      <div class="wcard-num">006</div>
       <div class="wcard-chips"><span class="wchip py">Python</span><span class="wchip ai">AI/ML</span><span class="wchip js">React</span></div>
       <div class="wcard-fn"><span class="dir">ai</span><span class="slash">/</span><span class="file">fintracker.py</span></div>
       <div class="wcard-title"><span class="hi">AI-Powered</span> Financial Tracker</div>
@@ -726,6 +755,33 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.le
 document.querySelectorAll('a,button,.wcard,.btn,.tab').forEach(el=>{
   el.addEventListener('mouseenter',()=>ring.classList.add('big'));
   el.addEventListener('mouseleave',()=>ring.classList.remove('big'));
+});
+
+const tabs=document.querySelectorAll('.tab');
+const cards=document.querySelectorAll('.wcard');
+const filterMap={
+  react:['react','jsx','typescript'],
+  python:['python','py'],
+  design:['figma','ui','ux','design'],
+  ai:['ai','ai/ml','machinelearning','ml'],
+};
+const normalize=(text)=>text.toLowerCase().replace(/[^a-z0-9]+/g,'');
+
+const shouldShowCard=(filter,card)=>{
+  if(filter==='all') return true;
+  const chips=[...card.querySelectorAll('.wchip')].map(chip=>normalize(chip.textContent));
+  const keywords=filterMap[filter]||[filter];
+  return chips.some(chip=>keywords.some(key=>chip.includes(key)));
+};
+
+tabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const filter=tab.dataset.filter;
+    tabs.forEach(t=>t.classList.toggle('active', t===tab));
+    cards.forEach(card=>{
+      card.style.display = shouldShowCard(filter,card) ? '' : 'none';
+    });
+  });
 });
 
 const tickerData=[

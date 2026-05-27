@@ -1,0 +1,40 @@
+/* ── PROFILE PIC ── */
+.profile-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 24px;
+  display: inline-block;
+  cursor: none; /* เพื่อให้เข้ากับ custom cursor ที่คุณทำไว้ */
+}
+.profile-wrapper::after {
+  content: '';
+  position: absolute;
+  /* สร้างกรอบเหลื่อมๆ สีส้ม (amber) ด้านหลังรูป */
+  inset: -6px -6px 6px 6px;
+  border: 1px solid var(--amber);
+  z-index: 0;
+  transition: all 0.3s ease;
+}
+.profile-wrapper:hover::after {
+  /* เอฟเฟกต์ตอนขยับเมาส์ไปชี้ กรอบจะหดกลับมา */
+  inset: -2px -2px 2px 2px;
+  background: var(--amber-bg);
+}
+.profile-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 4px;
+  /* ทำให้รูปเป็นขาวดำเพื่อคุมโทน */
+  filter: grayscale(100%) contrast(1.1); 
+  transition: filter 0.4s ease;
+}
+.profile-wrapper:hover .profile-img {
+  /* คืนสีสันให้รูปตอนเมาส์ชี้ */
+  filter: grayscale(0%); 
+}
