@@ -1,274 +1,802 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Yongthanaphon - Cozy Lo-Fi Portfolio">
-    <meta name="author" content="Yongthanaphon">
-    <title>Yongthanaphon | Lo-Fi Space</title>
-    <!-- Google Fonts for Lo-Fi Vibe -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yongthanaphon — Developer & Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#090909;--fg:#EDEBE5;--accent:#C8FF57;
+  --muted:#4A4A48;--border:#181818;--card:#0F0F0F;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:'Syne',sans-serif;
+  cursor:none;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.03;
+}
+
+/* ── LOADER ── */
+#loader{
+  position:fixed;inset:0;background:var(--bg);z-index:10000;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:40px 52px;
+  transition:opacity .9s cubic-bezier(.4,0,.2,1), visibility .9s;
+}
+#loader.out{opacity:0;visibility:hidden;}
+#loader-bar{
+  position:absolute;top:0;left:0;height:2px;
+  background:var(--accent);width:0%;
+  transition:width .05s linear;
+}
+#loader-num{
+  font-family:'DM Mono',monospace;
+  font-size:clamp(72px,14vw,148px);
+  font-weight:300;line-height:1;color:var(--fg);
+}
+#loader-label{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--muted);letter-spacing:.25em;text-transform:uppercase;
+  margin-top:16px;
+}
+
+/* ── CURSOR ── */
+#cur{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--accent);position:fixed;top:0;left:0;
+  pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:width .25s,height .25s;
+  mix-blend-mode:difference;
+}
+#cur-ring{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.2);
+  position:fixed;top:0;left:0;pointer-events:none;z-index:99998;
+  transform:translate(-50%,-50%);
+  transition:width .4s,height .4s,border-color .3s;
+}
+#cur.big{width:48px;height:48px;}
+#cur-ring.big{width:64px;height:64px;border-color:rgba(200,255,87,.4);}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:28px 52px;z-index:500;
+  mix-blend-mode:difference;
+}
+.nav-logo{
+  font-size:13px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:var(--fg);text-decoration:none;
+}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--muted);text-decoration:none;
+  letter-spacing:.12em;text-transform:uppercase;
+  transition:color .3s;
+}
+.nav-links a:hover{color:var(--fg);}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:0 52px 80px;
+  position:relative;overflow:hidden;
+}
+.hero-grid-lines{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black,transparent);
+}
+.hero-tag{
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:28px;
+  display:flex;align-items:center;gap:12px;
+  opacity:0;animation:fadeup .8s ease .5s forwards;
+}
+.hero-tag::before{
+  content:'';width:32px;height:1px;background:var(--accent);
+}
+.hero-name{
+  font-size:clamp(60px,9.5vw,148px);font-weight:800;
+  line-height:.92;letter-spacing:-.03em;overflow:hidden;
+}
+.hero-name .line{display:block;overflow:hidden;}
+.hero-name .word{
+  display:inline-block;
+  transform:translateY(105%);
+  animation:slideUp .9s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-name .w1{animation-delay:.4s;}
+.hero-name .w2{animation-delay:.55s;}
+.hero-name .w3{animation-delay:.68s;}
+.hero-name em{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;font-weight:400;color:var(--accent);
+}
+.hero-bottom{
+  margin-top:48px;display:flex;
+  justify-content:space-between;align-items:flex-end;
+  opacity:0;animation:fadeup .8s ease 1s forwards;
+}
+.hero-desc{
+  max-width:340px;font-size:15px;line-height:1.75;
+  color:var(--muted);
+}
+.hero-actions{display:flex;gap:12px;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;border-radius:100px;
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;cursor:none;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+}
+.btn-outline{
+  border:1px solid rgba(255,255,255,.12);color:var(--fg);
+}
+.btn-outline:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.25);}
+.btn-fill{
+  background:var(--accent);color:var(--bg);border:1px solid var(--accent);
+}
+.btn-fill:hover{background:transparent;color:var(--accent);}
+.scroll-cue{
+  position:absolute;right:52px;bottom:80px;
+  writing-mode:vertical-lr;
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:14px;
+  opacity:0;animation:fadeup .8s ease 1.3s forwards;
+}
+.scroll-cue::after{
+  content:'';width:1px;height:56px;background:currentColor;
+  animation:pulse-line 2.2s ease-in-out infinite;
+}
+@keyframes pulse-line{
+  0%,100%{height:56px;opacity:.6;}50%{height:18px;opacity:.2;}
+}
+@keyframes slideUp{to{transform:translateY(0);}}
+@keyframes fadeup{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ── TICKER ── */
+.ticker{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;overflow:hidden;white-space:nowrap;
+}
+.ticker-track{
+  display:inline-flex;
+  animation:ticker-anim 28s linear infinite;
+}
+.ticker-item{
+  display:inline-flex;align-items:center;gap:28px;
+  padding:0 28px;
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.ticker-item .hi{color:var(--accent);}
+.ticker-sep{width:4px;height:4px;border-radius:50%;background:var(--border);}
+@keyframes ticker-anim{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── SECTION COMMONS ── */
+.section{padding:120px 52px;}
+.section-label{
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+  display:flex;align-items:center;gap:14px;margin-bottom:52px;
+}
+.section-label::after{
+  content:'';width:48px;height:1px;background:rgba(200,255,87,.3);
+}
+
+/* ── ABOUT ── */
+#about{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:start;
+  padding:120px 52px;border-top:1px solid var(--border);
+}
+.about-h{
+  font-size:clamp(38px,4.5vw,64px);font-weight:800;
+  line-height:1.05;letter-spacing:-.025em;position:sticky;top:120px;
+}
+.about-h em{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;font-weight:400;display:block;
+}
+.about-body p{
+  font-size:15px;line-height:1.85;color:#7A7A75;margin-bottom:20px;
+}
+.about-body strong{color:var(--fg);font-weight:600;}
+.stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
+  margin-top:52px;padding-top:52px;
+  border-top:1px solid var(--border);
+}
+.stat-n{
+  font-size:44px;font-weight:800;line-height:1;
+  color:var(--fg);
+}
+.stat-n em{color:var(--accent);font-style:normal;font-size:28px;}
+.stat-l{
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--muted);letter-spacing:.12em;
+  text-transform:uppercase;margin-top:8px;
+}
+
+/* ── WORKS ── */
+#works{padding:0 52px 120px;border-top:1px solid var(--border);}
+.works-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding-top:120px;margin-bottom:48px;
+}
+.works-title{
+  font-size:clamp(30px,4vw,52px);
+  font-weight:800;letter-spacing:-.025em;
+}
+.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.card{
+  position:relative;overflow:hidden;
+  background:var(--card);cursor:none;
+  aspect-ratio:4/3;
+}
+.card.wide{grid-column:span 2;aspect-ratio:16/7;}
+.card-bg{
+  position:absolute;inset:0;
+  transition:transform .7s cubic-bezier(.16,1,.3,1);
+}
+.card:hover .card-bg{transform:scale(1.04);}
+.card-num{
+  position:absolute;top:24px;left:24px;
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:rgba(255,255,255,.25);letter-spacing:.1em;
+}
+.card-chips{
+  position:absolute;top:24px;right:24px;
+  display:flex;gap:8px;
+}
+.chip{
+  padding:4px 12px;border:1px solid rgba(255,255,255,.12);
+  border-radius:100px;font-family:'DM Mono',monospace;
+  font-size:10px;color:rgba(255,255,255,.4);
+  letter-spacing:.05em;text-transform:uppercase;
+}
+.card-foot{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:60px 28px 28px;
+  background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 100%);
+}
+.card-title{font-size:22px;font-weight:700;margin-bottom:6px;}
+.card-title.lg{font-size:clamp(24px,3vw,40px);}
+.card-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5;}
+.card-visual{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+
+/* ── EXPERIENCE ── */
+#exp{
+  border-top:1px solid var(--border);
+  padding:120px 52px;
+}
+.exp-grid{display:grid;grid-template-columns:1fr 2fr;gap:80px;}
+.exp-sticky{position:sticky;top:120px;}
+.exp-sticky h2{
+  font-size:clamp(32px,4vw,54px);font-weight:800;
+  letter-spacing:-.025em;line-height:1.05;
+}
+.exp-sticky h2 em{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;font-weight:400;display:block;
+}
+.exp-item{
+  padding:40px 0;border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:170px 1fr;gap:24px;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.exp-item.vis{opacity:1;transform:translateY(0);}
+.exp-date{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--muted);letter-spacing:.1em;padding-top:4px;
+}
+.exp-co{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--accent);letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.exp-role{font-size:19px;font-weight:700;margin-bottom:10px;}
+.exp-desc{font-size:14px;color:#666;line-height:1.75;}
+
+/* ── SKILLS ── */
+#skills{border-top:1px solid var(--border);padding:120px 52px;}
+.skills-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;margin-top:0;
+}
+.sk{
+  padding:40px;background:var(--card);
+  opacity:0;transform:translateY(16px);
+  transition:opacity .5s ease,transform .5s ease,background .3s;
+}
+.sk.vis{opacity:1;transform:translateY(0);}
+.sk:hover{background:#111;}
+.sk-icon{
+  font-size:28px;margin-bottom:20px;
+  opacity:.7;
+}
+.sk-name{font-size:17px;font-weight:700;margin-bottom:10px;}
+.sk-desc{font-size:13px;color:#666;line-height:1.7;}
+.sk-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+.sk-tag{
+  font-family:'DM Mono',monospace;font-size:10px;
+  padding:4px 10px;border:1px solid #2A2A2A;
+  border-radius:4px;color:var(--muted);letter-spacing:.05em;
+}
+
+/* ── CONTACT ── */
+#contact{
+  border-top:1px solid var(--border);
+  padding:120px 52px 80px;text-align:center;
+}
+#contact .section-label{justify-content:center;margin-bottom:36px;}
+#contact h2{
+  font-size:clamp(44px,8vw,116px);font-weight:800;
+  line-height:.93;letter-spacing:-.035em;margin-bottom:48px;
+}
+#contact h2 em{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;font-weight:400;color:var(--accent);
+}
+.contact-note{
+  font-family:'DM Mono',monospace;font-size:12px;
+  color:var(--muted);letter-spacing:.1em;margin-bottom:48px;
+}
+.contact-links{
+  display:flex;justify-content:center;gap:12px;flex-wrap:wrap;
+}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:24px 52px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+footer p{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--muted);letter-spacing:.08em;
+}
+
+/* ── REVEAL ── */
+.rev{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.rev.vis{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:20px 24px;}
+  .nav-links{display:none;}
+  #hero,#about,.section,#works,#exp,#skills,#contact{padding-left:24px;padding-right:24px;}
+  #about{grid-template-columns:1fr;gap:40px;padding-top:80px;padding-bottom:80px;}
+  .about-h{position:static;}
+  .works-head{padding-top:80px;}
+  .works-grid{grid-template-columns:1fr;}
+  .card.wide{grid-column:span 1;aspect-ratio:4/3;}
+  .exp-grid{grid-template-columns:1fr;gap:32px;}
+  .exp-sticky{position:static;}
+  .exp-item{grid-template-columns:1fr;gap:6px;}
+  .skills-grid{grid-template-columns:1fr 1fr;}
+  footer{flex-direction:column;gap:10px;text-align:center;}
+}
+@media(max-width:480px){
+  .skills-grid{grid-template-columns:1fr;}
+  .stats{grid-template-columns:1fr 1fr;}
+}
+</style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home">yong.</a>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">home</a></li>
-                <li><a href="#about" class="nav-link">about</a></li>
-                <li><a href="#skills" class="nav-link">skills</a></li>
-                <li><a href="#portfolio" class="nav-link">projects</a></li>
-                <li><a href="#contact" class="nav-link">contact</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="greeting">welcome to my space,</h1>
-                <h2 class="name">Yongthanaphon</h2>
-                <p class="tagline">crafting cozy digital experiences 🎧☕</p>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Say Hello</button>
-                    <button class="btn btn-secondary">My Tape 📼</button>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="floating-box">
-                    <p>📼</p>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <span></span>
-        </div>
-    </section>
+<!-- LOADER -->
+<div id="loader">
+  <div id="loader-bar"></div>
+  <div id="loader-num">0</div>
+  <div id="loader-label">Loading portfolio</div>
+</div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>I'm a designer and developer who loves crafting chill, functional digital spaces. Inspired by lo-fi beats, late-night coding sessions, and retro aesthetics, I build web experiences that feel cozy and human.</p>
-                    <p>When I'm off the keyboard, I'm probably listening to jazzhop, brewing some matcha, or finding the perfect vintage color palette for my next project.</p>
-                    <div class="about-info">
-                        <div class="info-item">
-                            <span class="info-label">Vibe</span>
-                            <span class="info-value">100% Chill</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Projects</span>
-                            <span class="info-value">20+</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Coffee</span>
-                            <span class="info-value">Countless ☕</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <span>🌱</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">My Toolkit</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">🎨</div>
-                    <h3>UI/UX Design</h3>
-                    <p>Creating interfaces that feel good to use, like a comfortable old sweater.</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">💻</div>
-                    <h3>Web Dev</h3>
-                    <p>Writing clean, semantic code that brings ideas to life on the screen.</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">📻</div>
-                    <h3>Retro Aesthetics</h3>
-                    <p>Blending modern tech with nostalgic, lo-fi visual styles.</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">📱</div>
-                    <h3>Mobile First</h3>
-                    <p>Ensuring your site looks perfect whether on a monitor or a phone.</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🪴</div>
-                    <h3>Growth</h3>
-                    <p>Always learning, growing, and adapting to new web standards.</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🌙</div>
-                    <h3>Late Night Code</h3>
-                    <p>Optimizing performance and accessibility while the world sleeps.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Yongthanaphon</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#exp">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <h2 class="section-title">Recent Tracks</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-card">
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23B2A4D4'/%3E%3Ctext x='50%' y='50%' font-size='32' font-family='monospace' fill='%234A3E3D' text-anchor='middle' dominant-baseline='middle'%3ETrack 01%3C/text%3E%3C/svg%3E" alt="Project 1">
-                        <div class="portfolio-overlay">
-                            <h3>Cozy Cafe App</h3>
-                            <p>A mobile UI for a local coffee shop</p>
-                            <a href="#" class="overlay-link">Play →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23F4D9A6'/%3E%3Ctext x='50%' y='50%' font-size='32' font-family='monospace' fill='%234A3E3D' text-anchor='middle' dominant-baseline='middle'%3ETrack 02%3C/text%3E%3C/svg%3E" alt="Project 2">
-                        <div class="portfolio-overlay">
-                            <h3>Lo-Fi Player</h3>
-                            <p>Web audio player with retro vibes</p>
-                            <a href="#" class="overlay-link">Play →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23A8C5A8'/%3E%3Ctext x='50%' y='50%' font-size='32' font-family='monospace' fill='%234A3E3D' text-anchor='middle' dominant-baseline='middle'%3ETrack 03%3C/text%3E%3C/svg%3E" alt="Project 3">
-                        <div class="portfolio-overlay">
-                            <h3>Plant Store</h3>
-                            <p>E-commerce for indoor gardening</p>
-                            <a href="#" class="overlay-link">Play →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23E8B4B8'/%3E%3Ctext x='50%' y='50%' font-size='32' font-family='monospace' fill='%234A3E3D' text-anchor='middle' dominant-baseline='middle'%3ETrack 04%3C/text%3E%3C/svg%3E" alt="Project 4">
-                        <div class="portfolio-overlay">
-                            <h3>Vintage Blog</h3>
-                            <p>Markdown-based blog platform</p>
-                            <a href="#" class="overlay-link">Play →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%239DB4C4'/%3E%3Ctext x='50%' y='50%' font-size='32' font-family='monospace' fill='%234A3E3D' text-anchor='middle' dominant-baseline='middle'%3ETrack 05%3C/text%3E%3C/svg%3E" alt="Project 5">
-                        <div class="portfolio-overlay">
-                            <h3>Weather App</h3>
-                            <p>Pixel-art styled weather forecast</p>
-                            <a href="#" class="overlay-link">Play →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23B2A4D4'/%3E%3Ctext x='50%' y='50%' font-size='32' font-family='monospace' fill='%234A3E3D' text-anchor='middle' dominant-baseline='middle'%3ETrack 06%3C/text%3E%3C/svg%3E" alt="Project 6">
-                        <div class="portfolio-overlay">
-                            <h3>Notebook</h3>
-                            <p>A cozy daily journal web app</p>
-                            <a href="#" class="overlay-link">Play →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="hero-tag">Available for projects · 2025</div>
+  <h1 class="hero-name">
+    <span class="line"><span class="word w1">Yongthanaphon</span></span>
+    <span class="line"><span class="word w2"><em>Developer</em></span></span>
+    <span class="line"><span class="word w3">& Designer</span></span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">Building digital experiences that combine clean code with thoughtful design. I create products people love to use.</p>
+    <div class="hero-actions">
+      <a class="btn btn-fill" href="#works">View Work</a>
+      <a class="btn btn-outline" href="#contact">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Drop a Line</h2>
-            <p class="contact-subtitle">Want to collaborate or just say hi? I'm always down for a chat.</p>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <span class="contact-icon">💌</span>
-                        <div>
-                            <h3>Email</h3>
-                            <p><a href="mailto:hello@yongthanaphon.com">hello@yongthanaphon.com</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">☎️</span>
-                        <div>
-                            <h3>Frequency</h3>
-                            <p><a href="tel:+66812345678">+66 (81) 234-5678</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📍</span>
-                        <div>
-                            <h3>Base</h3>
-                            <p>Bangkok, Thailand</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form">
-                    <input type="text" placeholder="name..." required>
-                    <input type="email" placeholder="email..." required>
-                    <textarea placeholder="message..." rows="5" required></textarea>
-                    <button type="submit" class="btn btn-primary">Send 📬</button>
-                </form>
-            </div>
-        </div>
-    </section>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker-track"></div>
+</div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>yong.</h3>
-                    <p>Building cozy corners on the internet.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Links</h3>
-                    <ul>
-                        <li><a href="#home">home</a></li>
-                        <li><a href="#about">about</a></li>
-                        <li><a href="#portfolio">projects</a></li>
-                        <li><a href="#contact">contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Socials</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link">Github</a>
-                        <a href="#" class="social-link">Instagram</a>
-                        <a href="#" class="social-link">Spotify</a>
-                        <a href="#" class="social-link">Twitter</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Yongthanaphon. stay chill. 🎧☕</p>
-            </div>
-        </div>
-    </footer>
+<!-- ABOUT -->
+<section id="about">
+  <div class="rev">
+    <div class="section-label">About</div>
+    <h2 class="about-h">Building things<br>that <em>matter.</em></h2>
+  </div>
+  <div class="about-body rev" style="transition-delay:.15s">
+    <p>I'm <strong>Yongthanaphon</strong>, a full-stack developer and UI designer passionate about building elegant digital products. I bridge the gap between design thinking and technical execution.</p>
+    <p>My work spans <strong>web applications</strong>, <strong>mobile apps</strong>, and <strong>design systems</strong> — always with an eye for detail and a focus on the end user experience.</p>
+    <p>Based in <strong>Hat Yai, Thailand</strong>, working with clients worldwide.</p>
+    <div class="stats">
+      <div>
+        <div class="stat-n">5<em>+</em></div>
+        <div class="stat-l">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-n">30<em>+</em></div>
+        <div class="stat-l">Projects Delivered</div>
+      </div>
+      <div>
+        <div class="stat-n">15<em>+</em></div>
+        <div class="stat-l">Happy Clients</div>
+      </div>
+      <div>
+        <div class="stat-n">∞</div>
+        <div class="stat-l">Coffee Consumed</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- WORKS -->
+<section id="works">
+  <div class="works-head rev">
+    <div>
+      <div class="section-label">Selected Works</div>
+      <h2 class="works-title">Projects</h2>
+    </div>
+    <a class="btn btn-outline" href="#">All Projects →</a>
+  </div>
+  <div class="works-grid">
+
+    <!-- Card 1 — Featured -->
+    <div class="card wide">
+      <div class="card-bg" style="background:linear-gradient(135deg,#0b0b1e 0%,#121240 55%,#0b0b1e 100%);"></div>
+      <svg class="card-visual" style="opacity:.16;" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="60" width="300" height="200" rx="14" fill="none" stroke="#C8FF57" stroke-width="1"/>
+        <rect x="82" y="94" width="256" height="14" rx="4" fill="#C8FF57" opacity=".7"/>
+        <rect x="82" y="122" width="180" height="9" rx="3" fill="#555"/>
+        <rect x="82" y="142" width="220" height="9" rx="3" fill="#333"/>
+        <rect x="82" y="162" width="140" height="9" rx="3" fill="#333"/>
+        <rect x="82" y="190" width="88" height="34" rx="8" fill="#C8FF57" opacity=".85"/>
+        <rect x="480" y="40" width="360" height="250" rx="14" fill="none" stroke="#fff" stroke-width=".5" opacity=".2"/>
+        <rect x="504" y="148" width="36" height="102" rx="5" fill="#C8FF57" opacity=".35"/>
+        <rect x="552" y="110" width="36" height="140" rx="5" fill="#C8FF57" opacity=".5"/>
+        <rect x="600" y="124" width="36" height="126" rx="5" fill="#C8FF57" opacity=".42"/>
+        <rect x="648" y="88" width="36" height="162" rx="5" fill="#C8FF57" opacity=".65"/>
+        <rect x="696" y="104" width="36" height="146" rx="5" fill="#C8FF57" opacity=".55"/>
+        <rect x="744" y="68" width="36" height="182" rx="5" fill="#C8FF57"/>
+      </svg>
+      <div class="card-num">01</div>
+      <div class="card-chips"><span class="chip">React</span><span class="chip">Dashboard</span></div>
+      <div class="card-foot">
+        <div class="card-title lg">Analytics Platform</div>
+        <div class="card-sub">Real-time data visualization dashboard for business intelligence.</div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-bg" style="background:linear-gradient(135deg,#0e1a0c 0%,#182b15 60%,#0e1a0c 100%);"></div>
+      <svg class="card-visual" style="opacity:.2;" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect x="120" y="40" width="160" height="280" rx="24" fill="none" stroke="#C8FF57" stroke-width="1"/>
+        <rect x="136" y="68" width="128" height="8" rx="4" fill="#C8FF57" opacity=".5"/>
+        <rect x="136" y="92" width="128" height="120" rx="8" fill="rgba(200,255,87,.08)"/>
+        <circle cx="200" cy="152" r="34" fill="none" stroke="#C8FF57" stroke-width=".8" opacity=".5"/>
+        <circle cx="200" cy="152" r="18" fill="#C8FF57" opacity=".25"/>
+        <rect x="136" y="226" width="56" height="22" rx="6" fill="#C8FF57" opacity=".6"/>
+        <rect x="208" y="226" width="56" height="22" rx="6" fill="rgba(255,255,255,.08)"/>
+        <rect x="136" y="262" width="128" height="6" rx="3" fill="rgba(255,255,255,.08)"/>
+      </svg>
+      <div class="card-num">02</div>
+      <div class="card-chips"><span class="chip">Mobile</span></div>
+      <div class="card-foot">
+        <div class="card-title">E-Commerce App</div>
+        <div class="card-sub">Seamless mobile shopping with one-tap checkout.</div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-bg" style="background:linear-gradient(135deg,#1a0d16 0%,#2c1828 60%,#1a0d16 100%);"></div>
+      <svg class="card-visual" style="opacity:.2;" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="50" width="280" height="200" rx="16" fill="none" stroke="#fff" stroke-width=".8" opacity=".3"/>
+        <circle cx="160" cy="130" r="44" fill="rgba(200,255,87,.08)" stroke="#C8FF57" stroke-width=".8" opacity=".6"/>
+        <rect x="220" y="96" width="88" height="11" rx="4" fill="#C8FF57" opacity=".6"/>
+        <rect x="220" y="118" width="68" height="9" rx="3" fill="#555"/>
+        <rect x="220" y="138" width="76" height="9" rx="3" fill="#333"/>
+        <rect x="220" y="158" width="56" height="9" rx="3" fill="#333"/>
+        <rect x="80" y="196" width="240" height="1" fill="rgba(255,255,255,.08)"/>
+        <rect x="80" y="210" width="120" height="8" rx="3" fill="#333"/>
+        <rect x="212" y="210" width="60" height="8" rx="3" fill="#C8FF57" opacity=".3"/>
+      </svg>
+      <div class="card-num">03</div>
+      <div class="card-chips"><span class="chip">UI/UX</span></div>
+      <div class="card-foot">
+        <div class="card-title">Design System</div>
+        <div class="card-sub">Scalable component library for enterprise products.</div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="card-bg" style="background:linear-gradient(135deg,#0e1319 0%,#182232 60%,#0e1319 100%);"></div>
+      <svg class="card-visual" style="opacity:.22;" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="50" width="280" height="200" rx="12" fill="#0d0d0d" stroke="#2a2a2a" stroke-width="1"/>
+        <circle cx="83" cy="74" r="7" fill="#ff5f57"/>
+        <circle cx="101" cy="74" r="7" fill="#ffbd2e"/>
+        <circle cx="119" cy="74" r="7" fill="#28ca42"/>
+        <rect x="80" y="98" width="62" height="8" rx="3" fill="#C8FF57" opacity=".7"/>
+        <rect x="150" y="98" width="88" height="8" rx="3" fill="#6eb3ff" opacity=".5"/>
+        <rect x="80" y="120" width="44" height="8" rx="3" fill="#c792ea" opacity=".6"/>
+        <rect x="132" y="120" width="106" height="8" rx="3" fill="#80cbc4" opacity=".45"/>
+        <rect x="96" y="142" width="62" height="8" rx="3" fill="#c792ea" opacity=".5"/>
+        <rect x="166" y="142" width="92" height="8" rx="3" fill="#80cbc4" opacity=".35"/>
+        <rect x="80" y="164" width="52" height="8" rx="3" fill="#C8FF57" opacity=".4"/>
+        <rect x="80" y="186" width="148" height="8" rx="3" fill="#444"/>
+        <rect x="80" y="206" width="88" height="8" rx="3" fill="#333"/>
+      </svg>
+      <div class="card-num">04</div>
+      <div class="card-chips"><span class="chip">Full-Stack</span></div>
+      <div class="card-foot">
+        <div class="card-title">SaaS Platform</div>
+        <div class="card-sub">End-to-end web application with API integrations.</div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card wide">
+      <div class="card-bg" style="background:linear-gradient(135deg,#180f08 0%,#2c1a0a 50%,#180f08 100%);"></div>
+      <svg class="card-visual" style="opacity:.18;" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="80,280 160,220 240,240 320,160 400,180 480,100 560,140 640,80 720,110 820,60" fill="none" stroke="#C8FF57" stroke-width="1.5"/>
+        <polyline points="80,280 160,220 240,240 320,160 400,180 480,100 560,140 640,80 720,110 820,60 820,300 80,300" fill="#C8FF57" opacity=".04"/>
+        <circle cx="480" cy="100" r="7" fill="#C8FF57"/>
+        <circle cx="640" cy="80" r="7" fill="#C8FF57" opacity=".7"/>
+        <circle cx="820" cy="60" r="7" fill="#C8FF57" opacity=".9"/>
+        <line x1="80" y1="40" x2="80" y2="300" stroke="#2a2a2a" stroke-width="1"/>
+        <line x1="80" y1="300" x2="820" y2="300" stroke="#2a2a2a" stroke-width="1"/>
+      </svg>
+      <div class="card-num">05</div>
+      <div class="card-chips"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">AI</span></div>
+      <div class="card-foot">
+        <div class="card-title lg">AI-Powered Financial Tracker</div>
+        <div class="card-sub">Smart portfolio management with machine learning insights and real-time data.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="exp">
+  <div class="exp-grid">
+    <div class="exp-sticky rev">
+      <div class="section-label">Career</div>
+      <h2>Work <em>Experience</em></h2>
+    </div>
+    <div>
+      <div class="exp-item">
+        <div>
+          <div class="exp-date">2023 – Present</div>
+        </div>
+        <div>
+          <div class="exp-co">TechCorp · Bangkok</div>
+          <div class="exp-role">Senior Frontend Developer</div>
+          <div class="exp-desc">Led development of customer-facing web applications, built a component design system used across multiple product teams, and mentored junior developers on best practices.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div>
+          <div class="exp-date">2021 – 2023</div>
+        </div>
+        <div>
+          <div class="exp-co">Creative Agency · Remote</div>
+          <div class="exp-role">Full-Stack Developer</div>
+          <div class="exp-desc">Delivered end-to-end web projects for clients across fintech, e-commerce, and media. Specialized in React, Node.js, and scalable UI design systems.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div>
+          <div class="exp-date">2019 – 2021</div>
+        </div>
+        <div>
+          <div class="exp-co">Freelance</div>
+          <div class="exp-role">Web Developer & UI Designer</div>
+          <div class="exp-desc">Built websites, mobile apps, and brand identities for startups and SMEs across Southeast Asia. Managed client relationships and full project lifecycle.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label rev">Skills & Tools</div>
+  <div class="skills-grid">
+    <div class="sk">
+      <div class="sk-icon">⬡</div>
+      <div class="sk-name">Frontend</div>
+      <div class="sk-desc">Responsive, performant web interfaces with modern frameworks and a sharp eye for detail.</div>
+      <div class="sk-tags">
+        <span class="sk-tag">React</span><span class="sk-tag">TypeScript</span>
+        <span class="sk-tag">Vue</span><span class="sk-tag">Next.js</span>
+        <span class="sk-tag">CSS / Tailwind</span>
+      </div>
+    </div>
+    <div class="sk">
+      <div class="sk-icon">◈</div>
+      <div class="sk-name">Backend</div>
+      <div class="sk-desc">Robust APIs and server-side systems built to scale reliably under real-world conditions.</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Node.js</span><span class="sk-tag">Python</span>
+        <span class="sk-tag">PostgreSQL</span><span class="sk-tag">REST</span>
+        <span class="sk-tag">GraphQL</span>
+      </div>
+    </div>
+    <div class="sk">
+      <div class="sk-icon">◎</div>
+      <div class="sk-name">Design</div>
+      <div class="sk-desc">User-centered interfaces with a focus on clarity, hierarchy, and aesthetic precision.</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Figma</span><span class="sk-tag">UI/UX</span>
+        <span class="sk-tag">Prototyping</span><span class="sk-tag">Design Systems</span>
+      </div>
+    </div>
+    <div class="sk">
+      <div class="sk-icon">⬟</div>
+      <div class="sk-name">DevOps</div>
+      <div class="sk-desc">Deploying and maintaining production infrastructure with confidence and repeatability.</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Docker</span><span class="sk-tag">AWS</span>
+        <span class="sk-tag">CI/CD</span><span class="sk-tag">Git</span>
+      </div>
+    </div>
+    <div class="sk">
+      <div class="sk-icon">◉</div>
+      <div class="sk-name">Mobile</div>
+      <div class="sk-desc">Cross-platform apps that feel native on both iOS and Android without compromise.</div>
+      <div class="sk-tags">
+        <span class="sk-tag">React Native</span><span class="sk-tag">Flutter</span>
+        <span class="sk-tag">iOS</span><span class="sk-tag">Android</span>
+      </div>
+    </div>
+    <div class="sk">
+      <div class="sk-icon">◇</div>
+      <div class="sk-name">AI & Tools</div>
+      <div class="sk-desc">Leveraging AI to accelerate development and build smarter, context-aware products.</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Claude</span><span class="sk-tag">OpenAI</span>
+        <span class="sk-tag">LangChain</span><span class="sk-tag">RAG</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="rev">Let's work<br><em>together.</em></h2>
+  <p class="contact-note rev" style="transition-delay:.1s">Open for freelance & full-time opportunities</p>
+  <div class="contact-links rev" style="transition-delay:.2s">
+    <a class="btn btn-fill" href="mailto:hello@yongthanaphon.dev">Email Me</a>
+    <a class="btn btn-outline" href="#">LinkedIn</a>
+    <a class="btn btn-outline" href="#">GitHub</a>
+    <a class="btn btn-outline" href="#">Download CV</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Yongthanaphon</p>
+  <p>Designed & built with ♥</p>
+  <p>Hat Yai, Thailand</p>
+</footer>
+
+<script>
+/* ── LOADER ── */
+const loaderNum = document.getElementById('loader-num');
+const loaderBar = document.getElementById('loader-bar');
+const loader = document.getElementById('loader');
+let pct = 0;
+const loadInterval = setInterval(() => {
+  pct += Math.floor(Math.random() * 6) + 1;
+  if (pct >= 100) { pct = 100; clearInterval(loadInterval); setTimeout(() => loader.classList.add('out'), 250); }
+  loaderNum.textContent = pct;
+  loaderBar.style.width = pct + '%';
+}, 28);
+
+/* ── CURSOR ── */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; });
+(function animRing() {
+  rx += (mx - rx) * .1; ry += (my - ry) * .1;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.card,.btn,.sk').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.classList.add('big'); ring.classList.add('big'); });
+  el.addEventListener('mouseleave', () => { cur.classList.remove('big'); ring.classList.remove('big'); });
+});
+
+/* ── TICKER ── */
+const tickerItems = [
+  {t:'React',hi:true},{t:'TypeScript'},{t:'Node.js',hi:true},{t:'UI/UX Design'},
+  {t:'Python',hi:true},{t:'Figma'},{t:'Next.js',hi:true},{t:'PostgreSQL'},
+  {t:'Mobile Apps',hi:true},{t:'Design Systems'},{t:'Docker'},{t:'AWS',hi:true}
+];
+const track = document.getElementById('ticker-track');
+let html = '';
+[...tickerItems,...tickerItems,...tickerItems,...tickerItems].forEach(item => {
+  html += `<div class="ticker-item">${item.hi ? '<span class="hi">' + item.t + '</span>' : item.t}<div class="ticker-sep"></div></div>`;
+});
+track.innerHTML = html;
+
+/* ── SCROLL REVEAL ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.rev,.exp-item,.sk').forEach((el, i) => {
+  if (el.classList.contains('sk')) el.style.transitionDelay = (i % 6 * .08) + 's';
+  if (el.classList.contains('exp-item')) el.style.transitionDelay = ([0,.12,.22][Array.from(document.querySelectorAll('.exp-item')).indexOf(el)] || 0) + 's';
+  obs.observe(el);
+});
+</script>
 </body>
 </html>
